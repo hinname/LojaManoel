@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaManoel.Communication", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaManoel.Application", "src\LojaManoel.Application\LojaManoel.Application.csproj", "{7D144D3C-2D67-489C-81C7-5A04A07D7273}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaManoel.Domain", "src\LojaManoel.Domain\LojaManoel.Domain.csproj", "{878A01D9-95CF-4E9A-8745-985C330F2658}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaManoel.Infrastructure", "src\LojaManoel.Infrastructure\LojaManoel.Infrastructure.csproj", "{0429DA73-6ABA-4CD6-B579-7F674DF76A0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +33,20 @@ Global
 		{7D144D3C-2D67-489C-81C7-5A04A07D7273}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D144D3C-2D67-489C-81C7-5A04A07D7273}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D144D3C-2D67-489C-81C7-5A04A07D7273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{878A01D9-95CF-4E9A-8745-985C330F2658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{878A01D9-95CF-4E9A-8745-985C330F2658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{878A01D9-95CF-4E9A-8745-985C330F2658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{878A01D9-95CF-4E9A-8745-985C330F2658}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0429DA73-6ABA-4CD6-B579-7F674DF76A0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0429DA73-6ABA-4CD6-B579-7F674DF76A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0429DA73-6ABA-4CD6-B579-7F674DF76A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0429DA73-6ABA-4CD6-B579-7F674DF76A0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{19FA81D9-D97D-458B-80F5-29E3EADB324C} = {E855229B-3EB0-4598-B8FE-CB5D94551762}
 		{C9C4AA74-0613-4A64-BF3A-14DC56BD3737} = {E855229B-3EB0-4598-B8FE-CB5D94551762}
 		{7D144D3C-2D67-489C-81C7-5A04A07D7273} = {E855229B-3EB0-4598-B8FE-CB5D94551762}
+		{878A01D9-95CF-4E9A-8745-985C330F2658} = {E855229B-3EB0-4598-B8FE-CB5D94551762}
+		{0429DA73-6ABA-4CD6-B579-7F674DF76A0E} = {E855229B-3EB0-4598-B8FE-CB5D94551762}
 	EndGlobalSection
 EndGlobal

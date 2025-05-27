@@ -14,6 +14,7 @@
     <ItemGroup>
       <ProjectReference Include="..\LojaManoel.Application\LojaManoel.Application.csproj" />
       <ProjectReference Include="..\LojaManoel.Communication\LojaManoel.Communication.csproj" />
+      <ProjectReference Include="..\LojaManoel.Infrastructure\LojaManoel.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
