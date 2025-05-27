@@ -1,0 +1,38 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql_server
+    user: root
+    environment:
+      USER: SA
+      SA_PASSWORD: StrongPassword123
+      ACCEPT_EULA: Y
+    volumes:
+      - ./sql_data/data:/var/opt/mssql/data
+      - ./sql_data/log:/var/opt/mssql/log
+      - ./sql_data/secrets:/var/opt/mssql/secrets
+    ports:
+      - "1433:1433"
+    networks:
+      - manoel-network
+  
+  webapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web_api
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    volumes:
+      - ./:/app
+    networks:
+      - manoel-network 
+
+networks:
+  manoel-network:
+    driver: bridge
