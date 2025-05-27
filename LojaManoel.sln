@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E855229B-3EB
 		src\.gitignore = src\.gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaManoel.Communication", "src\LojaManoel.Communication\LojaManoel.Communication.csproj", "{C9C4AA74-0613-4A64-BF3A-14DC56BD3737}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,8 +19,13 @@ Global
 		{19FA81D9-D97D-458B-80F5-29E3EADB324C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19FA81D9-D97D-458B-80F5-29E3EADB324C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19FA81D9-D97D-458B-80F5-29E3EADB324C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9C4AA74-0613-4A64-BF3A-14DC56BD3737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9C4AA74-0613-4A64-BF3A-14DC56BD3737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9C4AA74-0613-4A64-BF3A-14DC56BD3737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9C4AA74-0613-4A64-BF3A-14DC56BD3737}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{19FA81D9-D97D-458B-80F5-29E3EADB324C} = {E855229B-3EB0-4598-B8FE-CB5D94551762}
+		{C9C4AA74-0613-4A64-BF3A-14DC56BD3737} = {E855229B-3EB0-4598-B8FE-CB5D94551762}
 	EndGlobalSection
 EndGlobal
