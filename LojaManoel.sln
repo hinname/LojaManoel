@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaManoel.Api", "src\LojaManoel.Api\LojaManoel.Api.csproj", "{19FA81D9-D97D-458B-80F5-29E3EADB324C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E855229B-3EB0-4598-B8FE-CB5D94551762}"
+	ProjectSection(SolutionItems) = preProject
+		src\.gitignore = src\.gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19FA81D9-D97D-458B-80F5-29E3EADB324C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19FA81D9-D97D-458B-80F5-29E3EADB324C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19FA81D9-D97D-458B-80F5-29E3EADB324C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19FA81D9-D97D-458B-80F5-29E3EADB324C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19FA81D9-D97D-458B-80F5-29E3EADB324C} = {E855229B-3EB0-4598-B8FE-CB5D94551762}
+	EndGlobalSection
+EndGlobal
