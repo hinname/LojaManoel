@@ -1,6 +1,6 @@
 namespace LojaManoel.Communication.Requests.Product;
 
-public class ProductRequestJson
+public class RequestProductJson
 {
     public long Id { get; set; }
     public string Name { get; set; } = string.Empty;

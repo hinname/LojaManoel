@@ -18,6 +18,6 @@ public class OrderController : ControllerBase
     )
     {
         var response = await useCase.Execute(request);
-        return Created(string.Empty, null);
+        return Created(string.Empty, response);
     }
 }
