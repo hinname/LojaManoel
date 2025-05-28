@@ -31,17 +31,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./:/app
-      - /app/LojaManoel.Api/bin/
-      - /app/LojaManoel.Api/obj/
-      - /app/LojaManoel.Application/bin/
-      - /app/LojaManoel.Application/obj/
-      - /app/LojaManoel.Communication/bin/
-      - /app/LojaManoel.Communication/obj/
-      - /app/LojaManoel.Domain/bin/
-      - /app/LojaManoel.Domain/obj/
-      - /app/LojaManoel.Infrastructure/bin/
-      - /app/LojaManoel.Infrastructure/obj/
+      - .:/app
     networks:
       - manoel-network 
 

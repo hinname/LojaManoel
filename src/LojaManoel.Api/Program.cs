@@ -1,5 +1,6 @@
 using LojaManoel.Application;
 using LojaManoel.Infrastructure;
+using LojaManoel.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,4 +26,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.MapControllers();
 
+await MigrateDatabase();
+
 app.Run();
+
+async Task MigrateDatabase()
+{
+    await using var scope = app.Services.CreateAsyncScope(); // Creating a scope for the database context
+    await DatabaseMigration.MigrateDatabaseAsync(scope.ServiceProvider);
+}
