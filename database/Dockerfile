@@ -8,5 +8,3 @@ RUN chown -R mssql:mssql /var/opt/mssql
  
 # switching to the mssql user
 USER mssql
-
-COPY init.sql /docker-entrypoint-initdb.d/
