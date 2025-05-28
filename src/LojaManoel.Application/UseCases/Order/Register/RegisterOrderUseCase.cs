@@ -1,3 +1,4 @@
+using LojaManoel.Communication.Requests;
 using LojaManoel.Communication.Requests.Order;
 using LojaManoel.Communication.Requests.Product;
 using LojaManoel.Communication.Responses.Order;
@@ -25,65 +26,73 @@ public class RegisterOrderUseCase : IRegisterOrderUseCase
         _unitOfWork = unitOfWork;
     }
     
-    public async Task<ResponseRegisteredOrderJson> Execute(RequestOrderJson request)
+    public async Task<ResponseOrdersJson> Execute(RequestOrdersJson request)
     {
         Validate(request);
-        
-        var sortedProducts = new List<RequestProductJson>(request.Products)
-            .OrderByDescending(p => p.Height + p.Width + p.Length)
-            .ToList();
-        var boxes = new List<UsedBox>();
-       
-       
-        foreach (var product in sortedProducts)
+
+        var response = new ResponseOrdersJson
         {
-            bool placedInBox = false;
+            Orders = new List<ResponseRegisteredOrderJson>()
+        };
+        foreach (var requestOrder in request.Orders)
+        {
+            var sortedProducts = new List<RequestProductJson>(requestOrder.Products)
+                .OrderByDescending(p => p.Height + p.Width + p.Length)
+                .ToList();
+            var boxes = new List<UsedBox>();
+       
+       
+            foreach (var product in sortedProducts)
+            {
+                bool placedInBox = false;
             
-            // Try to place the product in an existing used box
-            foreach (var box in boxes)
-            {
-                if (FitsInBox(product, box))
+                // Try to place the product in an existing used box
+                foreach (var box in boxes)
                 {
-                    placedInBox = true;
-                    break;
+                    if (FitsInBox(product, box))
+                    {
+                        placedInBox = true;
+                        break;
+                    }
+                }
+
+                // If the product was not placed in any existing box, create a new used box
+                if (!placedInBox)
+                {
+                    var newUsedBox = CreateUsedBox(product);
+                    if (newUsedBox == null)
+                    {
+                        throw new Exception("Could not create used box");
+                    }
+                    boxes.Add(newUsedBox);
                 }
             }
 
-            // If the product was not placed in any existing box, create a new used box
-            if (!placedInBox)
+            // Adding Order to database
+            var order = new Domain.Entities.Order
             {
-                var newUsedBox = CreateUsedBox(product);
-                if (newUsedBox == null)
+                OrderId = requestOrder.OrderId,
+                Description = boxes.Select(b => "Box: " + b.Name + ", Products: " + string.Join(", ", b.Products.Select(p => p.Name)))
+                    .Aggregate((current, next) => current + "; " + next)
+            };
+        
+            await _repository.Add(order);
+            await _unitOfWork.Commit();
+            
+            response.Orders.Add(new ResponseRegisteredOrderJson
+            {
+                OrderId = order.OrderId,
+                InternalId = order.Id,
+                Boxes = boxes.Select(b => new ResponseBoxJson
                 {
-                    throw new Exception("Could not create used box");
-                }
-                boxes.Add(newUsedBox);
-            }
+                    Id = b.Id,
+                    Name = b.Name,
+                    Description = b.Description,
+                    Products = b.Products
+                }).ToList()
+            });
         }
-
-        // Adding Order to database
-        var order = new Domain.Entities.Order
-        {
-            OrderId = request.OrderId,
-            Description = boxes.Select(b => "Box: " + b.Name + ", Products: " + string.Join(", ", b.Products.Select(p => p.Name)))
-                .Aggregate((current, next) => current + "; " + next)
-        };
-        
-        await _repository.Add(order);
-        await _unitOfWork.Commit();
-        
-        return new ResponseRegisteredOrderJson
-        {
-            OrderId = order.OrderId,
-            InternalId = order.Id,
-            Boxes = boxes.Select(b => new ResponseBoxJson
-            {
-                Id = b.Id,
-                Name = b.Name,
-                Description = b.Description,
-                Products = b.Products
-            }).ToList()
-        };
+        return response;
 
     }
 
@@ -149,19 +158,27 @@ public class RegisterOrderUseCase : IRegisterOrderUseCase
 
     
     
-    private void Validate(RequestOrderJson request)
+    private static void Validate(RequestOrdersJson request)
     {
-        // Check if products mesurements are valid
-        if (request.Products == null || request.Products.Count == 0)
+        foreach (var order in request.Orders)
         {
-            throw new ArgumentException("Order must contain at least one product.");
-        }
-        foreach (var product in request.Products)
-        {
-            if (product.Height == 0 || product.Width == 0 || product.Length == 0)
+            // Check if products mesurements are valid
+            if (order.Products == null || order.Products.Count == 0)
             {
-                throw new ArgumentException("Product measurements must be greater than zero.");
+                throw new ArgumentException("Order must contain at least one product.");
+            }
+            foreach (var product in order.Products)
+            {
+                if (product.Height <= 0 || product.Width <= 0 || product.Length <= 0)
+                {
+                    throw new ArgumentException("Product measurements must be greater than zero.");
+                }
+                if (product.Height > 80 || product.Width > 80 || product.Length > 80)
+                {
+                    throw new ArgumentException("Product measurements must not exceed 80 cm.");
+                }
             }
         }
+        
     }
 }
