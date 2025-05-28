@@ -3,6 +3,8 @@ using LojaManoel.Communication.Requests.Product;
 using LojaManoel.Communication.Responses.Order;
 using LojaManoel.Communication.Responses.Product;
 using LojaManoel.Domain.Entities;
+using LojaManoel.Domain.Repositories;
+using LojaManoel.Domain.Repositories.Orders;
 
 namespace LojaManoel.Application.UseCases.Order.Register;
 
@@ -14,6 +16,15 @@ public class RegisterOrderUseCase : IRegisterOrderUseCase
         new Box { Id = 2, Name = "Caixa 2", Description = "Caixa 80, 50, 40", Height = 80, Width = 50, Length = 40 },
         new Box { Id = 3, Name = "Caixa 3", Description = "Caixa 50, 80, 60", Height = 50, Width = 80, Length = 60 }
     };
+
+    private readonly IOrdersWriteOnlyRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
+    public RegisterOrderUseCase(IOrdersWriteOnlyRepository repository, IUnitOfWork unitOfWork)
+    {
+        _repository = repository;
+        _unitOfWork = unitOfWork;
+    }
+    
     public async Task<ResponseRegisteredOrderJson> Execute(RequestOrderJson request)
     {
         Validate(request);
@@ -49,11 +60,22 @@ public class RegisterOrderUseCase : IRegisterOrderUseCase
                 boxes.Add(newUsedBox);
             }
         }
+
+        // Adding Order to database
+        var order = new Domain.Entities.Order
+        {
+            OrderId = request.OrderId,
+            Description = boxes.Select(b => "Box: " + b.Name + ", Products: " + string.Join(", ", b.Products.Select(p => p.Name)))
+                .Aggregate((current, next) => current + "; " + next)
+        };
+        
+        await _repository.Add(order);
+        await _unitOfWork.Commit();
         
         return new ResponseRegisteredOrderJson
         {
-            OrderId = Guid.NewGuid().ToString(),
-            InternalId = new Random().Next(1, 1000),
+            OrderId = order.OrderId,
+            InternalId = order.Id,
             Boxes = boxes.Select(b => new ResponseBoxJson
             {
                 Id = b.Id,
