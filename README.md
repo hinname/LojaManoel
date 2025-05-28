@@ -1,7 +1,7 @@
 ## LojaManoel WEBAPI
 Desafio para L2Code
 ### Como rodar a aplicação?
-necessário ter docker instalado na máquina.
+necessário ter docker instalado na máquina. [baixe por aqui](https://www.docker.com/)
 #### DATABASE
 É necessário começar pela instalação do sql server para que seja criado o banco de dados utilizado pela API.
 Para rodar o sql server basta rodar o seguinte comando no terminal dentro da pasta do projeto:
