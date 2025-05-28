@@ -30,6 +30,10 @@ services:
       - db
     volumes:
       - ./:/app
+      - /app/obj/
+      - /app/bin/
+      - /app/**/obj/
+      - /app/**/bin/
     networks:
       - manoel-network 
 
