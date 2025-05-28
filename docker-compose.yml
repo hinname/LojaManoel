@@ -1,6 +1,8 @@
 services:
   db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    build: 
+      context: ./database
+      dockerfile: Dockerfile
     container_name: sql_server
     user: root
     environment:
@@ -8,9 +10,9 @@ services:
       SA_PASSWORD: StrongPassword123
       ACCEPT_EULA: Y
     volumes:
-      - ./sql_data/data:/var/opt/mssql/data
-      - ./sql_data/log:/var/opt/mssql/log
-      - ./sql_data/secrets:/var/opt/mssql/secrets
+      - ./database/sql_data/data:/var/opt/mssql/data
+      - ./database/sql_data/log:/var/opt/mssql/log
+      - ./database/sql_data/secrets:/var/opt/mssql/secrets
     ports:
       - "1433:1433"
     networks:
